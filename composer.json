@@ -30,7 +30,8 @@
             "MWSFinancesService": "src/",
             "MWSMerchantFulfillmentService": "src/",
             "MWSRecommendationsSectionService": "src/",
-            "MWSSubscriptionsService": "src/"
+            "MWSSubscriptionsService": "src/",
+            "MWSEasyShipSectionService": "src/"
         }
     }
 }
