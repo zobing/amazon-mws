@@ -2,7 +2,7 @@
     "name": "zobeen/amazon-mws",
     "description": "Amazon MWS enables programmatic data exchange for listings, orders, payments, reports, and more. By using Amazon MWS, sellers can increase selling efficiency, reduce labor requirements, and improve response time to customers.",
     "type": "library",
-    "license": "Apache License, Version 2.0, January 2004, http://www.apache.org/licenses/",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Amazon.com, Inc.",
