@@ -21,6 +21,7 @@
  *  @see MarketplaceWebServiceSellers_Interface
  */
 require_once (dirname(__FILE__) . '/Interface.php');
+require_once (dirname(__FILE__) . '/../Config/curl.php');
 
 /**
  * MarketplaceWebServiceSellers_Client is an implementation of MarketplaceWebServiceSellers
@@ -453,6 +454,10 @@ class MarketplaceWebServiceSellers_Client implements MarketplaceWebServiceSeller
         }
 
         $ch = curl_init();
+
+        // 额外设置 cURL 参数
+        mws_curl_setopt($ch);
+
         curl_setopt($ch, CURLOPT_URL, $scheme . $url['host'] . $uri);
         curl_setopt($ch, CURLOPT_PORT, $port);
         $this->setSSLCurlOptions($ch);
@@ -473,6 +478,7 @@ class MarketplaceWebServiceSellers_Client implements MarketplaceWebServiceSeller
 
         $response = "";
         $response = curl_exec($ch);
+        mws_curl_log($ch);
 
         if($response === false) {
             require_once (dirname(__FILE__) . '/Exception.php');

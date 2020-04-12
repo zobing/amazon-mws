@@ -21,6 +21,7 @@
  */
 require_once ('MarketplaceWebService/Interface.php');
 require_once ('RequestType.php');
+require_once (dirname(__FILE__) . '/../Config/curl.php');
 
 define('CONVERTED_PARAMETERS_KEY', 'PARAMETERS');
 define('CONVERTED_HEADERS_KEY', 'HEADERS');
@@ -912,12 +913,17 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
     }
 
     $this->curlClient = curl_init();
+
+      // 额外设置 cURL 参数
+      mws_curl_setopt($this->curlClient);
+
     curl_setopt_array($this->curlClient, $curlOptions);
 
     $this->headerContents = @fopen('php://memory', 'rw+');
     $this->errorResponseBody = @fopen('php://memory', 'rw+');
 
     $httpResponse = curl_exec($this->curlClient);
+      mws_curl_log($this->curlClient);
 
     rewind($this->headerContents);
     $header = stream_get_contents($this->headerContents);

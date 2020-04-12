@@ -21,6 +21,7 @@
  *  @see MWSEasyShipSectionService_Interface
  */
 require_once (dirname(__FILE__) . '/Interface.php');
+require_once (dirname(__FILE__) . '/../Config/curl.php');
 
 /**
  * MWSEasyShipSectionService_Client is an implementation of MWSEasyShipSectionService
@@ -581,6 +582,10 @@ class MWSEasyShipSectionService_Client implements MWSEasyShipSectionService_Inte
         }
 
         $ch = curl_init();
+
+        // 额外设置 cURL 参数
+        mws_curl_setopt($ch);
+
         curl_setopt($ch, CURLOPT_URL, $scheme . $url['host'] . $uri);
         curl_setopt($ch, CURLOPT_PORT, $port);
         $this->setSSLCurlOptions($ch);
@@ -601,6 +606,7 @@ class MWSEasyShipSectionService_Client implements MWSEasyShipSectionService_Inte
 
         $response = "";
         $response = curl_exec($ch);
+        mws_curl_log($ch);
 
         if($response === false) {
             require_once (dirname(__FILE__) . '/Exception.php');

@@ -21,6 +21,7 @@
  *  @see FBAInventoryServiceMWS_Interface
  */
 require_once (dirname(__FILE__) . '/Interface.php');
+require_once (dirname(__FILE__) . '/../Config/curl.php');
 
 /**
  * FBAInventoryServiceMWS_Client is an implementation of FBAInventoryServiceMWS
@@ -510,6 +511,10 @@ class FBAInventoryServiceMWS_Client implements FBAInventoryServiceMWS_Interface
         }
 
         $ch = curl_init();
+
+        // 额外设置 cURL 参数
+        mws_curl_setopt($ch);
+
         curl_setopt($ch, CURLOPT_URL, $scheme . $url['host'] . $uri);
         curl_setopt($ch, CURLOPT_PORT, $port);
         $this->setSSLCurlOptions($ch);
@@ -530,6 +535,7 @@ class FBAInventoryServiceMWS_Client implements FBAInventoryServiceMWS_Interface
 
         $response = "";
         $response = curl_exec($ch);
+        mws_curl_log($ch);
 
         if($response === false) {
             require_once (dirname(__FILE__) . '/Exception.php');
